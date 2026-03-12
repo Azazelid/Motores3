@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace StarterAssets
 {
+
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM
     [RequireComponent(typeof(PlayerInput))]
@@ -111,8 +112,10 @@ namespace StarterAssets
         private bool _hasAnimator;
 
         //VARIABLES DE LOS EJERCICIOS Version 1.0
-        float targetSpeed;
-        float runStamina=500f;
+        //float targetSpeed;
+        //float runStamina=500f;
+
+        
 
         private bool IsCurrentDeviceMouse
         {
@@ -218,15 +221,16 @@ namespace StarterAssets
 
         private void Move()
         {
-            //bool isMoving = _input.move != Vector2.zero;
+            float targetSpeed;
+            //Checar si el personaje se esta moviendo
+            bool isMoving = _input.move != Vector2.zero;
+            bool canSprint = _input.sprint && isMoving;
             //bool canSprint = _input.sprint && isMoving && playerStamina != null && playerStamina.CanSprint();
-            // set target speed based on move speed, sprint speed and if sprint is pressed
-            //float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
-            //EJERCICIO 1 Crear stamina para correr
-            if (_input.sprint && runStamina>0)
+                     
+            //EJERCICIO 2 Usar un script de stamina
+            if (canSprint)
             {
                 targetSpeed=SprintSpeed;
-                runStamina--;
             }
             else
             {
