@@ -110,7 +110,7 @@ namespace StarterAssets
 
         private bool _hasAnimator;
 
-        //VARIABLES DE LOS EJERCICIOS
+        //VARIABLES DE LOS EJERCICIOS Version 1.0
         float targetSpeed;
         float runStamina=500f;
 
@@ -218,6 +218,8 @@ namespace StarterAssets
 
         private void Move()
         {
+            //bool isMoving = _input.move != Vector2.zero;
+            //bool canSprint = _input.sprint && isMoving && playerStamina != null && playerStamina.CanSprint();
             // set target speed based on move speed, sprint speed and if sprint is pressed
             //float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
             //EJERCICIO 1 Crear stamina para correr
