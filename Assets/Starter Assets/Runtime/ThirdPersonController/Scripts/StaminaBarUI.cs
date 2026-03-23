@@ -16,6 +16,11 @@ public class StaminaBarUI : MonoBehaviour
         if (playerStamina == null || staminaFillImage == null)
             return;
 
-        staminaFillImage.fillAmount = playerStamina.CurrentStamina / playerStamina.MaxStamina;
+        UpdateStaminaBar(playerStamina.CurrentStamina);
+    }
+
+    private void UpdateStaminaBar(float currentStamina)
+    {
+        staminaFillImage.fillAmount = currentStamina / playerStamina.MaxStamina;
     }
 }

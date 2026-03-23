@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerStamina : MonoBehaviour
@@ -26,6 +27,8 @@ public class PlayerStamina : MonoBehaviour
         {
             sprintLock=true;
         }
+
+        NotifyStamina();
     }
 
     public void RecoverStamina()
@@ -37,5 +40,15 @@ public class PlayerStamina : MonoBehaviour
         {
             sprintLock=false;
         }
+
+        NotifyStamina();
+    }
+
+    //EVENTO
+    public event Action<float> OnStaminaChanged;
+
+    private void NotifyStamina()
+    {
+        OnStaminaChanged?.Invoke(currentStamina);
     }
 }
