@@ -11,15 +11,29 @@ public class StaminaBarUI : MonoBehaviour
         playerStamina = FindFirstObjectByType<PlayerStamina>();
         //Uso de eventos: Vamos a suscribir la función Update stamina a la funcion OnStaminaChanged
         playerStamina.OnStaminaChanged += UpdateStaminaBar;
+        playerStamina.OnSprintLocked += BarLocked;
+        playerStamina.OnSprintUnlocked += BarUnlocked;
     }
 
     void OnDestroy()
     {
-        playerStamina.OnStaminaChanged -= UpdateStaminaBar;        
+        playerStamina.OnStaminaChanged -= UpdateStaminaBar;
+        playerStamina.OnSprintLocked -= BarLocked;
+        playerStamina.OnSprintUnlocked -= BarUnlocked;        
     }
 
     private void UpdateStaminaBar(float currentStamina)
     {
         staminaFillImage.fillAmount = currentStamina / playerStamina.MaxStamina;
+    }
+
+    void BarLocked()
+    {
+        staminaFillImage.color= Color.red;
+    }
+
+    void BarUnlocked()
+    {
+        staminaFillImage.color= Color.green;
     }
 }

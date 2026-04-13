@@ -13,6 +13,11 @@ public class PlayerStamina : MonoBehaviour
     public float CurrentStamina => currentStamina;//Funcion que permite SOLO leer una variable privada
     public float MaxStamina => maxStamina;
 
+    //EVENTOS
+    public event Action<float> OnStaminaChanged;
+    public event Action OnSprintLocked;
+    public event Action OnSprintUnlocked;
+
     public bool CanSprint()
     {
         return sprintLock==false && currentStamina > 0f;
@@ -26,6 +31,7 @@ public class PlayerStamina : MonoBehaviour
         if (currentStamina <= 0)
         {
             sprintLock=true;
+            OnSprintLocked?.Invoke();
         }
 
         NotifyStamina();
@@ -35,10 +41,13 @@ public class PlayerStamina : MonoBehaviour
     {
         currentStamina -= staminaDrain/2;
         currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+
         if (currentStamina <= 0)
         {
             sprintLock=true;
+            OnSprintLocked?.Invoke();
         }
+        
         NotifyStamina();
     }
 
@@ -50,13 +59,11 @@ public class PlayerStamina : MonoBehaviour
         if (currentStamina > minStamina)
         {
             sprintLock=false;
+            OnSprintUnlocked?.Invoke();
         }
 
         NotifyStamina();
     }
-
-    //EVENTO
-    public event Action<float> OnStaminaChanged;
 
     private void NotifyStamina()
     {
